@@ -1,0 +1,9 @@
+[
+  {
+    "_id": "admin_001",
+    "openid": "oXXXX_your_wechat_openid_here",
+    "name": "新郎/新娘",
+    "role": "superadmin",
+    "createdAt": { "$date": "2026-10-18T00:00:00.000Z" }
+  }
+]

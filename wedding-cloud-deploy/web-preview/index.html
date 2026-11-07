@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>黄怡 ❤ 金纬 · 婚礼心愿歌单</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lxgw-wenkai-webfont/1.7.0/style.min.css" />
+</head>
+<body class="european-theme">
+
+  <!-- 根页面容器 (全屏原生手机视口，无手机外壳) -->
+  <main class="app-viewport" id="appViewport">
+
+    <!-- ======================= 1. 宾客端页面 (Guest View) ======================= -->
+    <section id="guestPage" class="app-page active">
+      
+      <!-- 欧式皇家浪漫顶栏 (European Palace Hero) -->
+      <header class="wedding-hero">
+        <div class="palace-crest-frame">
+          <div class="crest-filigree-left">❧</div>
+          <div class="monogram-badge couple-avatar-badge">
+            <img src="couple_avatar.jpg" class="couple-avatar-img" alt="黄怡 ❤ 金纬" />
+            <span class="rings-decor">💍</span>
+          </div>
+          <div class="crest-filigree-right">☙</div>
+        </div>
+
+        <h1 class="wedding-title">黄怡 <span class="heart-icon">❤</span> 金纬</h1>
+        <p class="wedding-eng-sub">THE WEDDING MUSIC WISHES</p>
+        
+        <div class="wedding-quote-box">选一首你心仪的歌，让我们一起收藏今晚的浪漫与感动</div>
+
+        <div class="wedding-meta-tag">
+          <span class="meta-date">
+            <span class="cal-badge-1114">
+              <span class="cal-badge-top">11月</span>
+              <span class="cal-badge-num">14</span>
+            </span>
+            <span class="date-year-text">2026.11.14</span>
+          </span>
+          <span class="meta-dot">✦</span>
+          <span class="meta-venue">📍 东郊宾馆紫金厅</span>
+        </div>
+      </header>
+
+      <!-- 点歌表单卡片 (欧式高定宫廷金边) -->
+      <section class="wedding-card form-card">
+        <div class="card-header-row">
+          <div class="header-title">
+            <span class="music-icon">🎵</span>
+            <h2>点一首想在婚礼听到的歌</h2>
+          </div>
+          <span class="status-pill">扫码即点 · 实时同步</span>
+        </div>
+
+        <form id="songForm" onsubmit="return false;">
+          <!-- 1. 歌名 (必填) -->
+          <div class="form-group">
+            <label for="songTitleInput">
+              <span class="required">*</span>歌曲名称
+            </label>
+            <div class="input-container">
+              <input 
+                type="text" 
+                id="songTitleInput" 
+                placeholder="例如：今天你要嫁给我 / 告白气球" 
+                maxlength="50"
+                autocomplete="off"
+                required
+              />
+              <button type="button" class="btn-clear" id="btnClearTitle">✕</button>
+            </div>
+          </div>
+
+          <!-- 2. 歌手 (必填) -->
+          <div class="form-group">
+            <label for="artistInput">
+              <span class="required">*</span>歌手名称
+            </label>
+            <div class="input-container">
+              <input 
+                type="text" 
+                id="artistInput" 
+                placeholder="例如：陶喆 / 周杰伦" 
+                maxlength="40"
+                autocomplete="off"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- 3. 我的信息 (必填项) -->
+          <div class="form-group">
+            <label for="guestInfoInput">
+              <span class="required">*</span>我的信息（例如：姓名 / 我和新人的关系）
+            </label>
+            <div class="input-container">
+              <input 
+                type="text" 
+                id="guestInfoInput" 
+                placeholder="例如：伴郎张三 / 新娘大学同学李四" 
+                maxlength="40"
+                autocomplete="off"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- 4. 备注 (选填，放在最后一行) -->
+          <div class="form-group">
+            <label for="remarkInput">
+              <span class="optional-tag">选填</span>特别心愿或送给新人的祝福
+            </label>
+            <div class="input-container">
+              <input 
+                type="text" 
+                id="remarkInput" 
+                placeholder="例如：祝黄怡❤金纬百年好合，永远甜蜜！" 
+                maxlength="80"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+
+          <button type="submit" id="btnSubmitSong" class="btn-gold-action">
+            <span class="btn-sparkle">✨</span>
+            <span>提交我的音乐心愿</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- 大家都在听的心愿歌单 -->
+      <section class="playlist-section">
+        <div class="section-title-wrap">
+          <div>
+            <h3 class="section-title">大家的心愿歌单</h3>
+            <p class="section-desc">已合并相同歌曲点播 · 现场优先播放热门心愿</p>
+          </div>
+          <span class="count-pill" id="totalSongsBadge">0 首心愿曲</span>
+        </div>
+
+        <!-- 控制栏 -->
+        <div class="list-controls">
+          <div class="tab-switch-box">
+            <button type="button" class="tab-item active" data-tab="hot" id="tabHot">🔥 热门排行</button>
+            <button type="button" class="tab-item" data-tab="latest" id="tabLatest">✨ 最新提交</button>
+          </div>
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="guestSearchInput" placeholder="搜索歌名 / 歌手" />
+          </div>
+        </div>
+
+        <!-- 歌曲卡片流 -->
+        <div class="song-stream" id="guestSongStream">
+          <!-- 由 JS 渲染 -->
+        </div>
+      </section>
+
+      <!-- 欧式页脚与管理员登录入口 -->
+      <footer class="guest-footer">
+        <div class="footer-gem-divider">
+          <span class="line"></span>
+          <span class="gem-text">✦ 祝黄怡 ❤ 金纬百年好合 · 永结同心 ✦</span>
+          <span class="line"></span>
+        </div>
+        <p class="footer-tip">宾客点歌将自动汇总入库，新人审核后交由现场DJ播放</p>
+        
+        <!-- 管理员登录入口 (点击弹出密码登录) -->
+        <div class="admin-login-wrapper">
+          <button type="button" id="btnTriggerAdminModal" class="btn-admin-login-gold">
+            <span class="lock-icon">🔒</span>
+            <span>管理员登录（新人管理后台）</span>
+          </button>
+        </div>
+      </footer>
+    </section>
+
+
+    <!-- ======================= 2. 新人管理后台 (Admin View) ======================= -->
+    <section id="adminPage" class="app-page">
+      <div class="admin-top-bar">
+        <div>
+          <span class="admin-tag">新人专属</span>
+          <h2 class="admin-page-title">婚礼歌单调度后台</h2>
+          <div class="admin-couple-sub">黄怡 ❤ 金纬 · 2026.11.14</div>
+        </div>
+        <button type="button" class="btn-return-guest" id="btnAdminReturnGuest">← 返回点歌端</button>
+      </div>
+
+      <!-- KPI 看板 -->
+      <div class="kpi-grid">
+        <div class="kpi-box wedding-card">
+          <div class="kpi-label">点歌提交总数</div>
+          <div class="kpi-number gold" id="kpiTotalRequests">0</div>
+          <div class="kpi-sub">累计心愿点播</div>
+        </div>
+        <div class="kpi-box wedding-card">
+          <div class="kpi-label">不同歌曲去重</div>
+          <div class="kpi-number" id="kpiUniqueSongs">0</div>
+          <div class="kpi-sub">已合并同名曲</div>
+        </div>
+        <div class="kpi-box wedding-card">
+          <div class="kpi-label">已入选晚宴</div>
+          <div class="kpi-number rose" id="kpiSelectedCount">0</div>
+          <div class="kpi-sub">DJ准备播放</div>
+        </div>
+        <div class="kpi-box wedding-card">
+          <div class="kpi-label">已播放完毕</div>
+          <div class="kpi-number green" id="kpiPlayedCount">0</div>
+          <div class="kpi-sub">晚宴进行中</div>
+        </div>
+      </div>
+
+      <!-- DJ 导出卡片 -->
+      <div class="wedding-card export-card">
+        <div class="export-text-box">
+          <div class="export-header">📋 一键导出 DJ / 司仪歌单</div>
+          <p class="export-explain">自动将【已入选】与【已播放】的歌曲整理为标准排版清单，一键复制直接发微信给DJ与主持人。</p>
+        </div>
+        <button type="button" class="btn-gold-action" id="btnExportDJ">一键复制完整DJ歌单</button>
+      </div>
+
+      <!-- 筛选与搜索 -->
+      <div class="admin-filter-bar">
+        <div class="filter-chip-row">
+          <button class="chip active" data-filter="all">全部</button>
+          <button class="chip" data-filter="selected">🌟 已入选</button>
+          <button class="chip" data-filter="public">⏳ 待选曲</button>
+          <button class="chip" data-filter="played">✅ 已播放</button>
+          <button class="chip" data-filter="hidden">🚫 已隐藏</button>
+        </div>
+        <div class="admin-search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="adminSearchInput" placeholder="搜索歌名、歌手或心愿留言..." />
+        </div>
+      </div>
+
+      <!-- 歌曲管理列表 -->
+      <div class="admin-song-stream" id="adminSongStream">
+        <!-- 由 JS 渲染 -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 成功弹窗 -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-dialog">
+      <div class="modal-emoji">🎉</div>
+      <h3 class="modal-head">音乐心愿已送达！</h3>
+      <div class="modal-song-pill" id="modalSongName">《今天你要嫁给我》</div>
+      <p class="modal-text">感谢你为黄怡 ❤ 金纬的婚礼增添了一份特别的回忆！歌单已实时刷新，快看看大家还点了哪些歌曲吧。</p>
+      <button type="button" class="btn-gold-action" id="btnCloseSuccessModal">好哒，查看歌单</button>
+    </div>
+  </div>
+
+  <!-- 管理员密码登录弹窗 (密码保密) -->
+  <div class="modal-overlay" id="adminPassModal">
+    <div class="modal-dialog">
+      <div class="modal-emoji">🔐</div>
+      <h3 class="modal-head">新人管理后台登录</h3>
+      <p class="modal-text">请输入管理员密码进入婚礼歌单控制台</p>
+      <input 
+        type="password" 
+        id="adminPasscode" 
+        class="modal-input" 
+        placeholder="请输入管理密码" 
+        maxlength="20"
+      />
+      <div class="modal-actions-row">
+        <button type="button" class="btn-ghost" id="btnCancelPassModal">取消</button>
+        <button type="button" class="btn-gold-action" id="btnConfirmPasscode">登录后台</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 轻提示 (Toast) -->
+  <div class="toast-tip" id="toastTip"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

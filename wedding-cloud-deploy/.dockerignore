@@ -1,0 +1,8 @@
+node_modules
+.git
+.gemini
+miniprogram
+cloudfunctions
+compress-images.js
+project.config.json
+project.private.config.json
